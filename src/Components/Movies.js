@@ -20,7 +20,7 @@ export default class movies extends Component {
           })
     }
     handleChange=(e) => {
-         //this.setState({ currentsearch  : e.target.value })
+         //this.setState({ currentsearch  : e.target.value }) 
          let task= e.target.value;
          if(task=="")
          {
