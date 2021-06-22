@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
 // here getmovies is not a default file it is present in array from so we have to import it in below way
 import { getMovies } from './getmovies'
+import axios from 'axios'
 export default class movies extends Component {
     // here by using props object we catch the object form parent to child
     constructor(props) {
         super(props);
         this.state={
-            movies:getMovies(), 
+            movies:[], 
             currentsearch:'',
             currentPage:1,
             limit:4
             // we set current page number=1 and limit of movies will be displayed=4
         }
+    }
+    // here we are fetching the movies data from api with the help of axios through async await
+    async componentDidMount(){
+        let promise=axios.get('https://backend-react-movie.herokuapp.com/movies');
+        let data=await promise;
+        this.setState({
+            movies: data.data.movies
+        })
     }
 
     // here in ondelete function we are just passing an argument as id which comes from movies array which was present in getmovies 
@@ -86,6 +95,7 @@ export default class movies extends Component {
     }
     
     render() {
+        
         let {movies,currentsearch,currentPage,limit} = this.state;
         let filteredmovies = [];
         // if currentsearch is empty they movies will remain as previous
@@ -124,8 +134,18 @@ export default class movies extends Component {
         filteredmovies=filteredmovies.slice(si, ei);
         // here we just have to divide into parts so we divide whole page into two paerts (here we make it a row)
         // every page contain 12 colum so we make a part of 3 coulom and other 9 coloum size
+        // if movies array is empty then give loader otherwise display it
         return (
-            <div className='row'>
+            <>
+            {
+                this.state.movies==""?
+    
+                <div class="d-flex justify-content-center">
+     <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+       </div>
+       </div>
+            :<div className='row'  style={{backgroundColor: "#dfe4ea"}}>
                 <div className='col-3'>
                    <h1>hello</h1> 
                 </div>
@@ -135,9 +155,9 @@ export default class movies extends Component {
                     <input type="text" placeholder=" Enter your movies here " value={this.state.currentsearch} onChange={this.handleChange}></input>
                      {/* here we just added and input box for the number of movies limit we want see in a single page and get the value=4 from it  */}
                    <input type ="number" value={this.state.limit > filteredmovies.length ? filteredmovies.length:this.state.limit} min="1"limit={filteredmovies.length} max={this.state.movies.length} onChange={this.handleLimit}></input> 
-                    <table className="table"  >
+                    <table className="table" style={{backgroundColor: "#1B9CFC"}}  >
   <thead>
-    <tr>
+    <tr  >
       <th scope="col">#</th>
       <th scope="col">Title</th>
       <th scope="col">gener</th>
@@ -210,6 +230,9 @@ export default class movies extends Component {
                 </div>
                
             </div>
+    }
+            </>
+
         )
     }
 }
@@ -221,34 +244,3 @@ export default class movies extends Component {
 
 
 
-//---------------------------------extra way----------------------------------------------------------------------------------------//
-
-// here when a user type anything in task bar we just catch the task through e.target.value next we check if task is empty
-    // means user didnt type anything then we update the filtermovies list as original movies and currentserach = empty
-    // if user type anything  then we have to check if any title matches on it or not so 
-    // first  1--> we find title of every movies by filter function movies array and trim it to lower to remove extraspaces and convert it to lower-case
-    // second 2--> we just check if the title includes any task that user typed or not 
-    //  now we have to update the state of filtermovies as newfliterdmovies that we got and the currentsearch as the task left in the input box
-    // for example if we typed th then it will serach th named film but we delete h then it will not able to serach from whole movies array so we have to update the currentsearch ==task at  last
-//     handleChange=(e) => {
-//          //this.setState({ currentsearch  : e.target.value }) 
-//          let task= e.target.value;
-//          if(task=="")
-//          {
-//              this.setState({
-//                  filtermovies:this.state.movies,
-//                  currentsearch:''
-//              })
-//              return;
-//          }
-//          let newfilteredmovies = this.state.movies.filter(moviesobj=>{
-//              let title = moviesobj.title.trim().toLowerCase();
-//              console.log(title);
-//              return title.includes(task.toLowerCase())
-         
-//     })
-//     this.setState({
-//         filtermovies:newfilteredmovies,
-//         currentsearch:task
-//     })
-// }
