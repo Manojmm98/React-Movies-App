@@ -105,15 +105,15 @@ export default class movies extends Component {
     handlepagechange = (pagenumber) => {
         this.setState({ currentPage: pagenumber })
     }
-    handleGenreChange=(gener)=> {
-          this.setState({
-            cGener:gener
-          })
+    handleGenreChange = (gener) => {
+        this.setState({
+            cGener: gener
+        })
     }
 
     render() {
 
-        let { movies, currentsearch, currentPage, limit,genres,cGener } = this.state;
+        let { movies, currentsearch, currentPage, limit, genres, cGener } = this.state;
         let filteredmovies = [];
         // if currentsearch is empty they movies will remain as previous
         if (currentsearch == "") {
@@ -127,19 +127,13 @@ export default class movies extends Component {
                 return title.includes(currentsearch.toLowerCase());
             })
         }
-        if(cGener!='All Genres'){
-            filteredmovies=filteredmovies.filter(function(moviesobj){
-                return moviesobj.genre.name==cGener;
+        if (cGener != 'All Genres') {
+            filteredmovies = filteredmovies.filter(function (moviesobj) {
+                return moviesobj.genre.name == cGener;
             })
         }
-       
-        // let pagestyle = pagenumber;
-        // if (pagenumber == currentPage) {
-        //     pagestyle = 'page-item active'
-        // }
-        // else {
-        //     pagestyle = 'page item'
-        // }
+
+        //<li onClick={()=>this.handleGenreChange(genersobj.name)} key={genersobj._id} className="list-group-item " >
 
         //--------pagination--------
 
@@ -178,18 +172,20 @@ export default class movies extends Component {
                         : <div className='row' style={{ backgroundColor: "#dfe4ea" }}>
                             <div className='col-3'>
                                 <ul class="list-group">
+                                 
                                     {
 
-                                      genres.map((genersobj) =>(
-                                          
+                                        genres.map((genersobj) => (
 
-                                          <li onClick={()=>this.handleGenreChange(genersobj.name)} key={genersobj._id} className="list-group-item " >
-                                             {genersobj.name}
-                                             
 
-                                       </li>
-                                      ))
-                                    }                                   
+                                            <li onClick={() => this.handleGenreChange(genersobj.name)} key={genersobj._id} className="list-group-item " >
+                                                {genersobj.name}
+                                              
+
+
+                                            </li>
+                                        ))
+                                    }
                                 </ul>
                             </div>
                             <div className='col-9'>
