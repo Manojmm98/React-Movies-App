@@ -1,0 +1,21 @@
+.nav-style{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    background-color: blue;
+}
+.nav-style h1{
+    font-weight: bold;
+    color: #f2f8fd;
+}
+.list{
+     width:50%;
+     display:flex;
+     justify-content: space-between;
+     font-weight: bold;
+    }
+    .list li{
+        list-style: none;
+        color: whitesmoke;
+
+}

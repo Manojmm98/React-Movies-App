@@ -189,7 +189,7 @@ export default class movies extends Component {
                                 </ul>
                             </div>
                             <div className='col-9'>
-                                <h1 style={{ color: "black" }}>MM MOVIES STORE</h1>
+                                <h1 style={{ color: "black",textAlign: "center",marginTop:50,color: "rgba(6, 82, 221,1.0)",border:" 1rem solid"} }><i>Movies Store</i></h1>
                                 <br></br>
                                 <input type="text" placeholder=" Enter your movies here " value={this.state.currentsearch} onChange={this.handleChange}></input>
                                 {/* here we just added and input box for the number of movies limit we want see in a single page and get the value=4 from it  */}

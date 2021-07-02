@@ -1,9 +1,10 @@
 import React from 'react'
 
-function about() {
+function about(props) {
+    console.log(props.isAuth);
     return (
         <div>
-            <h1> This the router page</h1>
+            <h1> This is the about page</h1>
         </div>
     )
 }
